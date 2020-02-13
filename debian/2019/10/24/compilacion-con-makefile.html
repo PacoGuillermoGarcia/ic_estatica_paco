@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/ic_estatica_paco/assets/css/style.css">
+<title>Compilación de un programa en C utilizando un Makefile</title>
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Compilación de un programa en C utilizando un Makefile - The Administrator</title>
+<meta property="og:title" content="Compilación de un programa en C utilizando un Makefile" />
+<meta name="description" content="Elige el programa escrito en C que prefieras y comprueba en las fuentes que exista un fichero Makefile para compilarlo. Realiza los pasos necesarios para compilarlo e instálalo en tu equipo en un directorio que no interfiera con tu sistema de paquetes (/opt, /usr/local, etc.)" />
+<meta property="og:description" content="Elige el programa escrito en C que prefieras y comprueba en las fuentes que exista un fichero Makefile para compilarlo. Realiza los pasos necesarios para compilarlo e instálalo en tu equipo en un directorio que no interfiera con tu sistema de paquetes (/opt, /usr/local, etc.)" />
+<link rel="canonical" href="/ic_estatica_paco/debian/2019/10/24/compilacion-con-makefile.html" />
+<meta property="og:url" content="/ic_estatica_paco/debian/2019/10/24/compilacion-con-makefile.html" />
+<meta property="og:site_name" content="The Administrator" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-24T11:27:30+00:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Compilación de un programa en C utilizando un Makefile",
+"datePublished": "2019-10-24T11:27:30+00:00",
+"description": "Elige el programa escrito en C que prefieras y comprueba en las fuentes que exista un fichero Makefile para compilarlo. Realiza los pasos necesarios para compilarlo e instálalo en tu equipo en un directorio que no interfiera con tu sistema de paquetes (/opt, /usr/local, etc.)",
+"url": "/ic_estatica_paco/debian/2019/10/24/compilacion-con-makefile.html"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+<body>
+	<main class="container">
+		<section class="about">
+			<img src="/ic_estatica_paco/assets/portfolio.png" alt="Francisco Guillermo">
+			<h2>Francisco Guillermo</h2>
+			<p class="tagline">Administración de Sistemas</p>
+			<p>&copy; 2019</p>
+		</section>
+		<section class="content">
+			<div class="post-container">
+  <a class="post-link" href="/ic_estatica_paco/debian/2019/10/24/compilacion-con-makefile.html">
+    <h2 class="post-title">Compilación de un programa en C utilizando un Makefile</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Debian</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Oct 24, 2019</div>
+  </div>
+  <div class="post">
+    <h3 id="elige-el-programa-escrito-en-c-que-prefieras-y-comprueba-en-las-fuentes-que-exista-un-fichero-makefile-para-compilarlo">Elige el programa escrito en C que prefieras y comprueba en las fuentes que exista un fichero Makefile para compilarlo.</h3>
+<h3 id="realiza-los-pasos-necesarios-para-compilarlo-e-instálalo-en-tu-equipo-en-un-directorio-que-no-interfiera-con-tu-sistema-de-paquetes-opt-usrlocal-etc">Realiza los pasos necesarios para compilarlo e instálalo en tu equipo en un directorio que no interfiera con tu sistema de paquetes (/opt, /usr/local, etc.)</h3>
+
+<p>El paquete que he elegido es emacs voy a compilar la versión 26.3</p>
+
+<ul>
+  <li>Descargo el paquete del repositorio del proyecto gnu:</li>
+</ul>
+
+<p><a href="http://ftp.gnu.org/gnu/emacs/">http://ftp.gnu.org/gnu/emacs/</a></p>
+
+<ul>
+  <li>Creo una carpeta en mi directorio personal, voy a esa carpeta y descomprimo el archivo tar.gz
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir emacs
+cd emacs
+tar xvfz ../Descargas/emacs-26.3.tar.gz
+</code></pre></div>    </div>
+  </li>
+  <li>Miramos el <em>Makefile</em> para ver donde instalara el paquete, el mio por ejemplo tiene las siguientes lineas para cambiar ese <em>prefix</em> tendríamos que pasarle un parámetro en la ejecución del script de configuración, ejemplo <em>./configure –prefix=/opt</em> y tendríamos que añadir esa ruta al <em>PATH</em> para poder ejecutarlo
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># The default location for installation.  Everything is placed in
+# subdirectories of this directory.  The default values for many of
+# the variables below are expressed in terms of this one, so you may
+# not need to change them.  This defaults to /usr/local.
+prefix=/usr/local
+</code></pre></div>    </div>
+  </li>
+  <li>Ahora vamos ejecutamos el script de configuración e instalamos el programa. Es probable que cuando ejecutemos el script de configuración nos de errores o advertencias de ciertas dependencias, yo las he instalado con apt, algunas de las dependencias que yo he tenido que instalar son <em>libgnutls, xorg-dev, libtiff-dev</em>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paco@Ra:~/emacs/emacs-26.3$ ./configure
+paco@Ra:~/emacs/emacs-26.3$ make
+paco@Ra:~/emacs/emacs-26.3$ sudo make install
+</code></pre></div>    </div>
+  </li>
+  <li>Esperamos a que termine y vemos donde se nos ha instalado el paquete
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paco@Ra:~/emacs/emacs-26.3$ which emacs
+/usr/local/bin/emacs
+</code></pre></div>    </div>
+  </li>
+  <li>Para desinstalar el programa en mi caso se puede hacer con:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make unistall
+</code></pre></div>    </div>
+  </li>
+  <li>Para limpiar los ficheros creados durante la compilación en mi caso en el fichero <em>Makefile</em> nos da varias opciones de clean
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make distclean
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+  </div>
+		</section>
+	</main></body>
+</html>

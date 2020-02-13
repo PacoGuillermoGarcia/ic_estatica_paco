@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Levanta una excepción en caso de error
+set -e
+
+# Construímos el html incrementalmente
+bundle exec jekyll build --incremental
+

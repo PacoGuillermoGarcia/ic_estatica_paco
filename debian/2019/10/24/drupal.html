@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/ic_estatica_paco/assets/css/style.css">
+<title>Intalación de Monstra</title>
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Intalación de Monstra - The Administrator</title>
+<meta property="og:title" content="Intalación de Monstra" />
+<meta name="description" content="Monstra es un CMS de PHP, es un gestor de contenido, que suele utilizarse para hacer blogs, este CMS no necesita la instalación de una base de datos como los demas ya que su base de datos la guarda en un fichero xml" />
+<meta property="og:description" content="Monstra es un CMS de PHP, es un gestor de contenido, que suele utilizarse para hacer blogs, este CMS no necesita la instalación de una base de datos como los demas ya que su base de datos la guarda en un fichero xml" />
+<link rel="canonical" href="/ic_estatica_paco/debian/2019/10/24/drupal.html" />
+<meta property="og:url" content="/ic_estatica_paco/debian/2019/10/24/drupal.html" />
+<meta property="og:site_name" content="The Administrator" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-24T11:27:30+00:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Intalación de Monstra",
+"datePublished": "2019-10-24T11:27:30+00:00",
+"description": "Monstra es un CMS de PHP, es un gestor de contenido, que suele utilizarse para hacer blogs, este CMS no necesita la instalación de una base de datos como los demas ya que su base de datos la guarda en un fichero xml",
+"url": "/ic_estatica_paco/debian/2019/10/24/drupal.html"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+<body>
+	<main class="container">
+		<section class="about">
+			<img src="/ic_estatica_paco/assets/portfolio.png" alt="Francisco Guillermo">
+			<h2>Francisco Guillermo</h2>
+			<p class="tagline">Administración de Sistemas</p>
+			<p>&copy; 2019</p>
+		</section>
+		<section class="content">
+			<div class="post-container">
+  <a class="post-link" href="/ic_estatica_paco/debian/2019/10/24/drupal.html">
+    <h2 class="post-title">Intalación de Monstra</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Debian</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Oct 24, 2019</div>
+  </div>
+  <div class="post">
+    <p>Monstra es un CMS de PHP, es un gestor de contenido, que suele utilizarse para hacer blogs, este CMS no necesita la instalación de una base de datos como los demas ya que su base de datos la guarda en un fichero xml</p>
+
+<ol>
+  <li>Instalamos Apache2
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install apache2
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Descargamos el zip de la página de monstra
+ <a href="https://monstra.org/">https://monstra.org/</a></p>
+  </li>
+  <li>
+    <p>Descomprimimos el .zip y los archivos los pasamos a la carpeta de /var/www/html que vayamos a usar en mi caso sera /var/www/html/monstra</p>
+  </li>
+  <li>Ahora vamos a ir al directorio /etc/apache2/sites-available y creamos el fichero paco-monstra.conf, lo editamos y ponemos lo siguiente, una vez modificado tenemos que ejecutar <em>a2ensite paco-monstra.conf</em>:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;VirtualHost *:80&gt;
+     ServerName www.paco-monstra.org
+
+     ServerAdmin pakotoes@gmail.com
+     DocumentRoot /var/www/html/monstra/
+
+     ErrorLog ${APACHE_LOG_DIR}/error_monstra.log
+     CustomLog ${APACHE_LOG_DIR}/access_monstra.log combined
+ &lt;/VirtualHost&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>En el fichero /etc/apache2/apache2.conf tenemos que crear el directorio, lo editamos y ponemos lo siguiente:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;Directory /var/www/html/monstra&gt;
+     Options Indexes FollowSymLinks
+     AllowOverride All
+     Require all granted
+ &lt;/Directory&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>Cambiamos los permisos al directorio /var/www/html/monstra:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chown -R www-data:www-data /var/www/html/monstra
+</code></pre></div>    </div>
+  </li>
+  <li>Reiniciamos el servicio de apache
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl restart apache2
+</code></pre></div>    </div>
+  </li>
+  <li>Entramos desde el navegador, Nos saldrá una página con el instalador y solo tenemos que seguir los pasos y ya estaría instalado:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.paco-monstra.org/install.php
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><img src="/assets/monstra1.png" alt="" /></p>
+
+
+  </div>
+		</section>
+	</main></body>
+</html>

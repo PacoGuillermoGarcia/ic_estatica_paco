@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/ic_estatica_paco/assets/css/style.css">
+<title>Script en bash para comprobar los paquetes de un repositorio</title>
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Script en bash para comprobar los paquetes de un repositorio - The Administrator</title>
+<meta property="og:title" content="Script en bash para comprobar los paquetes de un repositorio" />
+<meta name="description" content="Realiza un script que introduciéndolo como parámetro el nombre de un repositorio, muestre como salida los paquetes de ese repositorio que están instalados en la máquina. ``` #Este script sirve para saber los paquetes que estan instalados desde un repositorio que le ponemos nosotros como parametro a la hora de ejecutarlo" />
+<meta property="og:description" content="Realiza un script que introduciéndolo como parámetro el nombre de un repositorio, muestre como salida los paquetes de ese repositorio que están instalados en la máquina. ``` #Este script sirve para saber los paquetes que estan instalados desde un repositorio que le ponemos nosotros como parametro a la hora de ejecutarlo" />
+<link rel="canonical" href="/ic_estatica_paco/debian/2019/10/24/script-repositorios.html" />
+<meta property="og:url" content="/ic_estatica_paco/debian/2019/10/24/script-repositorios.html" />
+<meta property="og:site_name" content="The Administrator" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-24T11:27:30+00:00" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Script en bash para comprobar los paquetes de un repositorio",
+"datePublished": "2019-10-24T11:27:30+00:00",
+"description": "Realiza un script que introduciéndolo como parámetro el nombre de un repositorio, muestre como salida los paquetes de ese repositorio que están instalados en la máquina. ``` #Este script sirve para saber los paquetes que estan instalados desde un repositorio que le ponemos nosotros como parametro a la hora de ejecutarlo",
+"url": "/ic_estatica_paco/debian/2019/10/24/script-repositorios.html"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+<body>
+	<main class="container">
+		<section class="about">
+			<img src="/ic_estatica_paco/assets/portfolio.png" alt="Francisco Guillermo">
+			<h2>Francisco Guillermo</h2>
+			<p class="tagline">Administración de Sistemas</p>
+			<p>&copy; 2019</p>
+		</section>
+		<section class="content">
+			<div class="post-container">
+  <a class="post-link" href="/ic_estatica_paco/debian/2019/10/24/script-repositorios.html">
+    <h2 class="post-title">Script en bash para comprobar los paquetes de un repositorio</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Debian</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Oct 24, 2019</div>
+  </div>
+  <div class="post">
+    <h3 id="realiza-un-script-que-introduciéndolo-como-parámetro-el-nombre-de-un-repositorio-muestre-como-salida-los-paquetes-de-ese-repositorio-que-están-instalados-en-la-máquina">Realiza un script que introduciéndolo como parámetro el nombre de un repositorio, muestre como salida los paquetes de ese repositorio que están instalados en la máquina.</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Este script sirve para saber los paquetes que estan instalados desde un repositorio que le ponemos nosotros como parametro a la hora de ejecutarlo
+
+#Ejemplos de parametros: http://deb.debian.org/debian
+
+#!/bin/bash
+
+#Guardo el repositorio
+repo=$1
+#Filtro el comando "dpkg -l" para que me de todos los paquetes que estan instalados y luego con cut me quedo con el nombre
+#Hago un bucle para que por cada paquete que este instalado se quede solo con el repositorio del que se ha instalado y lo igualo al repositorio que he guardado al principio que era un parametro 
+#Por ultimo muestro el paquete si los dos repositorios son iguales 
+for paquete in $(dpkg -l | grep '^ii' | cut -d ' ' -f 3); do
+    if [ $repo = $(apt-cache policy $paquete | egrep '\*\*\*' -A1 | tail -1 | awk '{print $2}') ]; then
+        echo $paquete
+    fi
+done
+</code></pre></div></div>
+
+  </div>
+		</section>
+	</main></body>
+</html>
