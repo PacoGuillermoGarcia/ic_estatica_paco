@@ -1,0 +1,36 @@
+language: ruby
+rvm:
+  - 2.6.3
+
+script: ./script/cibuild		# Ejecutamos el script para construir
+					# el html
+branches:
+  only:
+  - master				# Estas son las ramas donde va a
+  - gh-pages				# actuar Travis
+
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true	# Con esto aceleramos la instalación 
+					# de html-proofer
+
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+
+cache: bundler 				# Guardamos en caché la instalación
+					# de gemas
+
+notifications:				# Desactivamos las notificaciones por
+  email: false				# mail
+
+deploy:					# Desplegamos usando el proveedor pages
+  provider: pages			# de github-pages. Especificamos el
+  skip_cleanup: true			# token $GITHUB_TOKEN que definiremos
+  local_dir: _site			# más adelante en el dashboard.
+  github_token: $GITHUB_TOKEN		# Con la opción "repo" y "branch"
+  on:					# indicamos el repositorio y la rama
+    repo: PacoGuillermoGarcia/ic_estatica_paco		# respectivamente.
+    on:					
+      branch: gh-pages			
