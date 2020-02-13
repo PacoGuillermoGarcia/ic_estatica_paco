@@ -5,5 +5,3 @@ set -e
 # Construímos el html incrementalmente
 bundle exec jekyll build --incremental
 
-# Verificamos el html y comprobamos que las url externas son https
-bundle exec htmlproofer --empty-alt-ignore --enforce-https ./_site
