@@ -1,0 +1,58 @@
+---
+layout: post
+title: "Intalación de Monstra"
+date: 2019-10-24 16:57:30 +0530
+categories: Debian
+published: true
+---
+Monstra es un CMS de PHP, es un gestor de contenido, que suele utilizarse para hacer blogs, este CMS no necesita la instalación de una base de datos como los demas ya que su base de datos la guarda en un fichero xml
+
+1. Instalamos Apache2
+```
+sudo apt-get install apache2
+```
+
+2. Descargamos el zip de la página de monstra
+	<https://monstra.org/>
+
+3. Descomprimimos el .zip y los archivos los pasamos a la carpeta de /var/www/html que vayamos a usar en mi caso sera /var/www/html/monstra
+
+4. Ahora vamos a ir al directorio /etc/apache2/sites-available y creamos el fichero paco-monstra.conf, lo editamos y ponemos lo siguiente, una vez modificado tenemos que ejecutar *a2ensite paco-monstra.conf*:
+```
+	<VirtualHost *:80>
+		ServerName www.paco-monstra.org
+
+		ServerAdmin pakotoes@gmail.com
+		DocumentRoot /var/www/html/monstra/
+
+		ErrorLog ${APACHE_LOG_DIR}/error_monstra.log
+		CustomLog ${APACHE_LOG_DIR}/access_monstra.log combined
+	</VirtualHost>
+```
+
+5. En el fichero /etc/apache2/apache2.conf tenemos que crear el directorio, lo editamos y ponemos lo siguiente:
+```
+	<Directory /var/www/html/monstra>
+		Options Indexes FollowSymLinks
+		AllowOverride All
+		Require all granted
+	</Directory>
+```
+
+6. Cambiamos los permisos al directorio /var/www/html/monstra:
+```
+sudo chown -R www-data:www-data /var/www/html/monstra
+```
+
+7. Reiniciamos el servicio de apache
+```
+sudo systemctl restart apache2
+```
+
+8. Entramos desde el navegador, Nos saldrá una página con el instalador y solo tenemos que seguir los pasos y ya estaría instalado:
+```
+http://www.paco-monstra.org/install.php
+```
+
+![](/assets/monstra1.png)
+
