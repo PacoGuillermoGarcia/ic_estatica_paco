@@ -1,8 +1,8 @@
 title: The Administrator
 author: Francisco Guillermo García
-email: pakotoes@gmail.com
+email: pacoguillermogarcia@gmail.com
 description: Blog de Francisco Guillermo García
-
+baseurl: /ic_estatica_paco/
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 plainwhite:
